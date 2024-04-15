@@ -1,6 +1,6 @@
 app_name = "drsaucy"
 app_title = "DrSaucy"
-app_publisher = "rf"
+app_publisher = "RF"
 app_description = "drsaucy"
 app_email = "hamza@rf.com"
 app_license = "mit"
