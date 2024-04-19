@@ -116,6 +116,9 @@ app_license = "mit"
 
 override_doctype_class = {
 	"Product Bundle": "drsaucy.hook_events.product_bundle.OverrideProductBundle",
+	"Sales Invoice": "drsaucy.hook_events.sales_invoice.OverrideSalesInvoice",
+	"Sales Order": "drsaucy.hook_events.sales_order.OverrideSalesOrder",
+	"Delivery Note": "drsaucy.hook_events.delivery_note.OverrideDeliveryNote",
 }
 
 # Document Events
