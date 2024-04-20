@@ -134,6 +134,9 @@ override_doctype_class = {
 # }
 
 doc_events = {
+	"Item": {
+		"validate": "drsaucy.hook_events.item.validate_store_uom"
+	},
 	"Product Bundle": {
 		"validate": "drsaucy.hook_events.product_bundle.add_sub_items_on_validate"
 	}
