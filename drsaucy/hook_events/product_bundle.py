@@ -26,20 +26,24 @@ def update_sub_items(self, save=True):
 def get_sub_items(self):
 	self.cur_sub_items = {}
 	for d in self.items:
-		if frappe.db.exists("Product Bundle", {"new_item_code": d.item_code}):
-			get_child_sub_items(self, d.item_code, d.qty)
-		elif d.item_code:
-			add_to_cur_sub_items(
-				self,
-				frappe._dict(
-					{
-						"item_code": d.item_code,
-						"description": d.description,
-						"uom": d.uom,
-						"qty": flt(d.qty),
-					}
+		if not d.custom_is_bom_item:
+			if frappe.db.exists("Product Bundle", {"new_item_code": d.item_code}):
+				get_child_sub_items(self, d.item_code, d.qty)
+			elif d.item_code:
+				add_to_cur_sub_items(
+					self,
+					frappe._dict(
+						{
+							"item_code": d.item_code,
+							"description": d.description,
+							"uom": d.uom,
+							"qty": flt(d.qty),
+						}
+					)
 				)
-			)
+		else:
+			if d.custom_bom:
+				get_exploded_items(self, d.custom_bom)
 
 
 def add_to_cur_sub_items(self, args):
@@ -92,3 +96,26 @@ def add_sub_items(self, save=True):
 
 		if save:
 			ch.db_insert()
+
+
+def get_exploded_items(self, bom):
+	if frappe.db.exists("BOM", {"name", bom}):
+		bom_doc = frappe.get_doc("BOM", bom)
+		for d in bom_doc.exploded_items:
+			add_to_cur_sub_items(
+				self,
+				frappe._dict(
+					{
+						"item_code": d.item_code,
+						"description": d.description,
+						"uom": d.stock_uom,
+						"qty": flt(d.stock_qty),
+					}
+				)
+			)
+
+
+@frappe.whitelist()
+def get_default_bom(item_code):
+	bom = frappe.db.get_value("BOM", {"docstatus": 1, "item": item_code, "is_default": 1}, ["name"])
+	return bom
