@@ -43,7 +43,7 @@ def get_sub_items(self):
 				)
 		else:
 			if d.custom_bom:
-				get_exploded_items(self, d.custom_bom)
+				get_exploded_items(self, d.custom_bom, d.qty)
 
 
 def add_to_cur_sub_items(self, args):
@@ -75,7 +75,7 @@ def get_child_sub_items(self, item_code, qty):
 					"item_code": d["item_code"],
 					"description": d["description"],
 					"uom": d["uom"],
-					"qty": d["qty"],
+					"qty": d["qty"] * qty,
 				}
 			)
 		)
@@ -98,9 +98,11 @@ def add_sub_items(self, save=True):
 			ch.db_insert()
 
 
-def get_exploded_items(self, bom):
+def get_exploded_items(self, bom, qty):
 	if frappe.db.exists("BOM", {"name", bom}):
 		bom_doc = frappe.get_doc("BOM", bom)
+		if not bom_doc.quantity or bom_doc.quantity == 0:
+			bom_doc.quantity = 1
 		for d in bom_doc.exploded_items:
 			add_to_cur_sub_items(
 				self,
@@ -109,7 +111,7 @@ def get_exploded_items(self, bom):
 						"item_code": d.item_code,
 						"description": d.description,
 						"uom": d.stock_uom,
-						"qty": flt(d.stock_qty),
+						"qty": float(d.stock_qty / bom_doc.quantity) * qty
 					}
 				)
 			)

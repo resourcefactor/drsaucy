@@ -16,4 +16,14 @@ frappe.ui.form.on("Product Bundle Item", {
 			frappe.model.set_value(cdt, cdn, "custom_bom", "");
 		}
 	},
+	item_code: function (frm, cdt, cdn) {
+		var d = locals[cdt][cdn];
+		frm.set_query("custom_bom", "items", function () {
+			return {
+				filters: {
+					item: d.item_code,
+				},
+			};
+		});
+	},
 });
