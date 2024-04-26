@@ -62,7 +62,7 @@ def get_child_sub_items(self, item_code, qty):
 			pbs_item.uom,
 			pbs_item.qty
 		FROM `tabProduct Bundle` as pb
-		JOIN `tabProduct Bundle Item` as pbs_item on pb.name = pbs_item.parent
+		JOIN `tabProduct Bundle Sub Item` as pbs_item on pb.name = pbs_item.parent
 		WHERE
 			pb.new_item_code = '{0}'
 	""".format(item_code), as_dict=1)
