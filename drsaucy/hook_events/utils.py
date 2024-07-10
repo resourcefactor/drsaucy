@@ -68,3 +68,13 @@ def get_product_bundle_items(item_code):
 		.orderby(product_bundle_item.idx)
 	)
 	return query.run(as_dict=True)
+
+
+def validate_store_uom(self, method):
+	for item in self.items:
+		if not item.item_code:
+			continue
+
+		store_uom = frappe.db.get_value("Item", item.item_code, "store_uom")
+		if not store_uom:
+			frappe.throw(f"Please set Store UOM in Item <a href='/app/item/{item.item_code}'><b>{item.item_code}</b></a>")

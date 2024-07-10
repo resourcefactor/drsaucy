@@ -142,6 +142,30 @@ doc_events = {
 	},
 	"Product Bundle": {
 		"validate": "drsaucy.hook_events.product_bundle.add_sub_items_on_validate"
+	},
+	"Stock Entry": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+	},
+	"Delivery Note": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+	},
+	"Sales Invoice": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+	},
+	"Sales Order": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+	},
+	"Purchase Receipt": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+	},
+	"Purchase Order": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+	},
+	"Purchase Invoice": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+	},
+	"Material Request": {
+		"validate": "drsaucy.hook_events.utils.validate_store_uom"
 	}
 }
 
