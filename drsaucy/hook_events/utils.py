@@ -78,3 +78,11 @@ def validate_store_uom(self, method):
 		store_uom = frappe.db.get_value("Item", item.item_code, "store_uom")
 		if not store_uom:
 			frappe.throw(f"Please set Store UOM in Item <a href='/app/item/{item.item_code}'><b>{item.item_code}</b></a>")
+
+
+def validate_uom(doc, method):
+	for res in doc.items:
+		if res.item_code and res.uom:
+			# Check if the UOM conversion exists for the given item
+			if not frappe.db.exists("UOM Conversion Detail", {"parent": res.item_code, "uom": res.uom}):
+				frappe.throw(f"<b>Row#{res.idx}:</b> UOM <b>{res.uom}</b> conversion rate not found in Item <a href='/app/item/{res.item_code}'><b>{res.item_code}</b></a>.")

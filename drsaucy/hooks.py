@@ -138,34 +138,34 @@ override_doctype_class = {
 
 doc_events = {
 	"Item": {
-		"validate": "drsaucy.hook_events.item.validate_store_uom"
+		"validate": "drsaucy.hook_events.item.validate_uom"
 	},
 	"Product Bundle": {
 		"validate": "drsaucy.hook_events.product_bundle.add_sub_items_on_validate"
 	},
 	"Stock Entry": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	},
 	"Delivery Note": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	},
 	"Sales Invoice": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	},
 	"Sales Order": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	},
 	"Purchase Receipt": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	},
 	"Purchase Order": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	},
 	"Purchase Invoice": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	},
 	"Material Request": {
-		"validate": "drsaucy.hook_events.utils.validate_store_uom"
+		"validate": "drsaucy.hook_events.utils.validate_uom"
 	}
 }
 
