@@ -1,0 +1,216 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-10 10:06:44.102142",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "blink_pos_credentials_section",
+  "email",
+  "api_url",
+  "column_break_defw",
+  "password",
+  "column_break_pspu",
+  "type",
+  "access_token",
+  "section_break_amtn",
+  "delivery_charges_account",
+  "customer",
+  "column_break_gidv",
+  "from_date",
+  "to_date",
+  "create_invoices",
+  "section_break_lzka",
+  "last_pos_updated",
+  "last_customer_updated_at",
+  "last_item_updated_at",
+  "last_order_updated_at",
+  "column_break_wxaa",
+  "check_connectivity",
+  "sync_orders",
+  "last_execution_status",
+  "last_execution",
+  "log_section",
+  "logs"
+ ],
+ "fields": [
+  {
+   "fieldname": "blink_pos_credentials_section",
+   "fieldtype": "Section Break",
+   "label": "Blink POS Credentials"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_defw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "Password",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_pspu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_lzka",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "last_execution",
+   "fieldtype": "Datetime",
+   "label": "Last Execution",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_wxaa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_pos_updated",
+   "fieldtype": "Data",
+   "label": "Last POS Updated",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sync_orders",
+   "fieldtype": "Button",
+   "label": "Sync Orders"
+  },
+  {
+   "fieldname": "log_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Logs Detail"
+  },
+  {
+   "fieldname": "last_execution_status",
+   "fieldtype": "Data",
+   "label": "Last Execution Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "access_token",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Access Token",
+   "read_only": 1
+  },
+  {
+   "fieldname": "api_url",
+   "fieldtype": "Data",
+   "label": "API URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "logs",
+   "fieldtype": "Text",
+   "label": "Logs",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_connectivity",
+   "fieldtype": "Button",
+   "label": "Check Connectivity"
+  },
+  {
+   "description": "<b>Ex: %Y-%m-%dT%H:%M:%S.%fZ --&gt;\n2024-08-28T19:56:04.000000Z</b>",
+   "fieldname": "last_customer_updated_at",
+   "fieldtype": "Data",
+   "label": "Last Customer Updated AT"
+  },
+  {
+   "description": "Ex: %Y-%m-%dT%H:%M:%S.%fZ -->\n2024-08-28T19:56:04.000000Z",
+   "fieldname": "last_item_updated_at",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Last Item Updated AT"
+  },
+  {
+   "description": "<b>Ex: %Y-%m-%dT%H:%M:%S.%fZ --&gt;\n2024-08-28T19:56:04.000000Z</b>",
+   "fieldname": "last_order_updated_at",
+   "fieldtype": "Data",
+   "label": "Last Order Updated AT"
+  },
+  {
+   "fieldname": "section_break_amtn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "delivery_charges_account",
+   "fieldtype": "Link",
+   "label": "Delivery Charges Account",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_gidv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "create_invoices",
+   "fieldtype": "Button",
+   "label": "Create Invoices"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-08-29 13:56:26.707869",
+ "modified_by": "Administrator",
+ "module": "DrSaucy",
+ "name": "Blink POS Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,128 @@
+{
+ "actions": [],
+ "autoname": "field:order_id",
+ "creation": "2024-08-13 14:43:08.409351",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "total",
+  "delivery_charges",
+  "tax",
+  "discount",
+  "grand_total",
+  "payment_type",
+  "items",
+  "column_break_kupa",
+  "status",
+  "customer_id",
+  "order_id",
+  "branch_id",
+  "created_at",
+  "updated_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_id",
+   "fieldtype": "Data",
+   "label": "Customer ID"
+  },
+  {
+   "fieldname": "order_id",
+   "fieldtype": "Data",
+   "label": "Order ID",
+   "unique": 1
+  },
+  {
+   "fieldname": "branch_id",
+   "fieldtype": "Data",
+   "label": "Branch ID"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "BlinkCo Orders Item",
+   "options": "BlinkCo Orders Item"
+  },
+  {
+   "fieldname": "updated_at",
+   "fieldtype": "Data",
+   "label": "Updated At"
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Date",
+   "label": "Created At"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Non-Billed\nBilled"
+  },
+  {
+   "fieldname": "column_break_kupa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_charges",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Delivery Charges"
+  },
+  {
+   "fieldname": "payment_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Payment Type"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total"
+  },
+  {
+   "fieldname": "tax",
+   "fieldtype": "Currency",
+   "label": "Tax"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Currency",
+   "label": "Discount"
+  }
+ ],
+ "in_create": 1,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-08-29 13:28:15.147150",
+ "modified_by": "Administrator",
+ "module": "DrSaucy",
+ "name": "BlinkCo Orders",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
