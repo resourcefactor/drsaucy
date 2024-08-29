@@ -202,7 +202,6 @@ class BlinkPOSSettings(Document):
         return total_items or "Zero"
 
 
-@frappe.whitelist()
 def sync_orders(self):
     frappe.publish_realtime(
         "eval_js",
@@ -235,7 +234,7 @@ def sync_orders(self):
     else:
         updated_at = self.last_order_updated_at
 
-    params = {"page": 1, "update_at": updated_at}
+    params = {"page": 1, "updated_at": updated_at}
     headers = {"Authorization": f"Bearer {self.access_token}"}
 
     last_page = False
