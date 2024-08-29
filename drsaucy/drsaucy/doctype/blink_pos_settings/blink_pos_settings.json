@@ -165,13 +165,13 @@
   },
   {
    "fieldname": "from_date",
-   "fieldtype": "Date",
+   "fieldtype": "Datetime",
    "label": "From Date",
    "reqd": 1
   },
   {
    "fieldname": "to_date",
-   "fieldtype": "Date",
+   "fieldtype": "Datetime",
    "label": "To Date",
    "reqd": 1
   },
@@ -192,7 +192,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-08-29 13:56:26.707869",
+ "modified": "2024-08-29 15:23:16.370421",
  "modified_by": "Administrator",
  "module": "DrSaucy",
  "name": "Blink POS Settings",

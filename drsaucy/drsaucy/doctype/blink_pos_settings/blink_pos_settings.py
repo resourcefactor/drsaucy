@@ -270,7 +270,7 @@ def sync_orders(self):
                 new_order.discount = float(doc["discount"])
                 new_order.total = float(doc["sub_total"])
                 new_order.grand_total = float(doc["grand_total"])
-                new_order.created_at = getdate(doc["created_at"])
+                new_order.created_at = get_datetime(doc["created_at"].replace("Z", ""))
                 new_order.updated_at = doc["updated_at"]
 
                 for inv in doc["invoice"]:
@@ -282,7 +282,7 @@ def sync_orders(self):
                         "category_id": d["category_id"],
                         "price": float(d["price"]) if d.get("price") else inv.get("actual_total") / qty if inv.get("actual_total") else 0,
                         "qty": qty,
-                        "amount": float(d["total"]) if d.get("total") else 0,
+                        "amount": float(inv["total"]) if inv.get("total") else 0,
                         "discount": float(d["discount"]) if d.get("discount") else 0,
                     })
 

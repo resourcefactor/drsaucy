@@ -50,7 +50,7 @@
   },
   {
    "fieldname": "created_at",
-   "fieldtype": "Date",
+   "fieldtype": "Datetime",
    "label": "Created At"
   },
   {
@@ -102,7 +102,7 @@
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-29 13:28:15.147150",
+ "modified": "2024-08-29 15:23:37.666672",
  "modified_by": "Administrator",
  "module": "DrSaucy",
  "name": "BlinkCo Orders",
