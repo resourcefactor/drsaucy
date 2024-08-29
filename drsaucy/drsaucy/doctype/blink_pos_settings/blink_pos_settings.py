@@ -8,8 +8,12 @@ import requests
 import json
 import re
 from time import sleep
-from frappe.utils.data import flt, get_datetime
-from frappe.utils import getdate, validate_email_address, validate_phone_number
+from frappe.utils import (
+    getdate,
+    get_datetime,
+    validate_email_address,
+    validate_phone_number,
+)
 from frappe.utils.password import get_decrypted_password
 from frappe.model.document import Document
 
@@ -278,8 +282,8 @@ def sync_orders(self):
                         "category_id": d["category_id"],
                         "price": float(d["price"]) if d.get("price") else inv.get("actual_total") / qty if inv.get("actual_total") else 0,
                         "qty": qty,
-                        "amount": float(d["total"]),
-                        "discount": float(d["discount"]),
+                        "amount": float(d["total"]) if d.get("total") else 0,
+                        "discount": float(d["discount"]) if d.get("discount") else 0,
                     })
 
                 new_order.save()
