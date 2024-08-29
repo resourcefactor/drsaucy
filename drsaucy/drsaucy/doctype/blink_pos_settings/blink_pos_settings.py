@@ -54,8 +54,8 @@ class BlinkPOSSettings(Document):
 
     @frappe.whitelist()
     def create_invoices(self):
-        # frappe.enqueue(create_invoices, self=self, timeout=30000000, is_async=True)
-        create_invoices(self)
+        frappe.enqueue(create_invoices, self=self, timeout=30000000, is_async=True)
+        # create_invoices(self)
 
     @frappe.whitelist()
     def sync_customers(self):
