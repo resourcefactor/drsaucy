@@ -52,7 +52,6 @@ class BlinkPOSSettings(Document):
 
     @frappe.whitelist()
     def sync_orders(self):
-        frappe.msgprint("Sync Job Created")
         frappe.enqueue(sync_orders, self=self, timeout=30000000, is_async=True)
         # sync_orders(self)
 
@@ -254,41 +253,15 @@ def sync_orders(self):
 
         for blinkco_order in result["data"]["data"]:
             if float(blinkco_order["grand_total"]) > 0 and not frappe.db.exists("BlinkCo Orders", {"name": blinkco_order["id"]}):
-                order_detail = self.make_get_request("order-detail", {"id": blinkco_order["id"]}, headers)
-                doc = order_detail["data"]
                 new_order = frappe.new_doc("BlinkCo Orders")
-                new_order.customer_id = doc["customer_id"]
-                new_order.order_id = doc["id"]
-                new_order.branch_id = doc["branch_id"]
-                new_order.payment_type = doc["payment_type"] if doc.get("payment_type") else None
-
-                for ch in doc.get("charge"):
-                    new_order.delivery_charges = float(ch.get("amount"))
-
-                new_order.tax = float(doc["tax"])
-                new_order.discount = float(doc["discount"])
-                new_order.total = float(doc["sub_total"])
-                new_order.grand_total = float(doc["grand_total"])
-                new_order.created_at = get_datetime(doc["created_at"].replace("Z", ""))
-                new_order.updated_at = doc["updated_at"]
-
-                for inv in doc["invoice"]:
-                    d = inv["item"]
-                    qty = float(d["qty"]) if d.get("qty") else float(inv["qty"]) if inv.get("qty") else 1
-
-                    new_order.append("items", {
-                        "item_id": d["id"],
-                        "category_id": d["category_id"],
-                        "price": float(d["price"]) if d.get("price") else inv.get("actual_total") / qty if inv.get("actual_total") else 0,
-                        "qty": qty,
-                        "amount": float(inv["total"]) if inv.get("total") else 0,
-                        "discount": float(d["discount"]) if d.get("discount") else 0,
-                    })
-
+                new_order.order_id = blinkco_order["id"]
+                new_order.created_at = get_datetime(blinkco_order["created_at"].replace("Z", ""))
+                new_order.updated_at = blinkco_order["updated_at"]
+                new_order.not_listed = 1
                 new_order.save()
                 frappe.db.commit()
 
-                frappe.db.set_single_value("Blink POS Settings", "last_order_updated_at", doc["updated_at"])
+                frappe.db.set_single_value("Blink POS Settings", "last_order_updated_at", blinkco_order["updated_at"])
 
                 processed_invoices += 1
 
@@ -307,6 +280,67 @@ def sync_orders(self):
         "eval_js",
         f'frappe.show_alert({{message: "{processed_invoices}/{total_invoices} orders synced",indicator: "green"}})',
     )
+
+
+def create_blinkco_orders():
+    pos_settings = frappe.get_single("Blink POS Settings")
+    orders_list = frappe.db.get_list("BlinkCo Orders", {"not_listed": 1})
+    headers = {"Authorization": f"Bearer {pos_settings.get('access_token')}"}
+    processed_orders = 0
+    for order in orders_list:
+        if processed_orders <= 50:
+            order_detail = pos_settings.make_get_request("order-detail", {"id": order.name}, headers)
+            doc = order_detail["data"]
+            order_doc = frappe.get_doc("BlinkCo Orders", order.name)
+            order_doc.customer_id = doc["customer_id"]
+            order_doc.branch_id = doc["branch_id"]
+            order_doc.payment_type = (
+                doc["payment_type"] if doc.get("payment_type") else None
+            )
+
+            for ch in doc.get("charge"):
+                order_doc.delivery_charges = float(ch.get("amount"))
+
+            order_doc.tax = float(doc["tax"])
+            order_doc.discount = float(doc["discount"])
+            order_doc.total = float(doc["sub_total"])
+            order_doc.grand_total = float(doc["grand_total"])
+            order_doc.created_at = get_datetime(doc["created_at"].replace("Z", ""))
+            order_doc.updated_at = doc["updated_at"]
+
+            for inv in doc["invoice"]:
+                d = inv["item"]
+                qty = (
+                    float(d["qty"])
+                    if d.get("qty")
+                    else float(inv["qty"])
+                    if inv.get("qty")
+                    else 1
+                )
+
+                order_doc.append(
+                    "items",
+                    {
+                        "item_id": d["id"],
+                        "category_id": d["category_id"],
+                        "price": float(d["price"])
+                        if d.get("price")
+                        else inv.get("actual_total") / qty
+                        if inv.get("actual_total")
+                        else 0,
+                        "qty": qty,
+                        "amount": float(inv["total"]) if inv.get("total") else 0,
+                        "discount": float(d["discount"])
+                        if d.get("discount")
+                        else 0,
+                    },
+                )
+
+            order_doc.not_listed = 0
+            order_doc.save()
+            frappe.db.commit()
+
+            processed_orders += 1
 
 
 def create_invoices(self):

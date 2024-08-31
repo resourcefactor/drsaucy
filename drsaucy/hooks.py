@@ -172,23 +172,15 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"drsaucy.tasks.all"
-# 	],
-# 	"daily": [
-# 		"drsaucy.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"drsaucy.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"drsaucy.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"drsaucy.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"cron": {
+		# 3 minutes
+		"*/3 * * * *": [
+			"drsaucy.drsaucy.doctype.blink_pos_settings.blink_pos_settings.create_blinkco_orders",
+		],
+	},
+}
+
 
 # Testing
 # -------

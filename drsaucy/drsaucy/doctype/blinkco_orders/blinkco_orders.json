@@ -18,7 +18,8 @@
   "order_id",
   "branch_id",
   "created_at",
-  "updated_at"
+  "updated_at",
+  "not_listed"
  ],
  "fields": [
   {
@@ -97,12 +98,18 @@
    "fieldname": "discount",
    "fieldtype": "Currency",
    "label": "Discount"
+  },
+  {
+   "default": "1",
+   "fieldname": "not_listed",
+   "fieldtype": "Check",
+   "label": "Not Listed?"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-29 15:23:37.666672",
+ "modified": "2024-08-31 12:39:37.400383",
  "modified_by": "Administrator",
  "module": "DrSaucy",
  "name": "BlinkCo Orders",
