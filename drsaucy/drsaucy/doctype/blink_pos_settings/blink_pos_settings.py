@@ -239,9 +239,13 @@ def sync_orders(self):
     last_page = False
     processed_invoices = 0
     total_invoices = 0
+    flag = True
+
     while not last_page:
         result = self.make_get_request("order-listing", params, headers)
-        total_invoices = result["data"]["total"]
+        if flag:
+            total_invoices = result["data"]["total"]
+            flag = False
 
         if not total_invoices:
             break
@@ -263,13 +267,13 @@ def sync_orders(self):
 
                 frappe.db.set_single_value("Blink POS Settings", "last_order_updated_at", blinkco_order["updated_at"])
 
-                processed_invoices += 1
+            processed_invoices += 1
 
-                frappe.publish_progress(
-                    percent=(processed_invoices * 100) / total_invoices,
-                    title="Syncing Invoices",
-                    description=f"{processed_invoices}/{total_invoices} Invoices",
-                )
+            frappe.publish_progress(
+                percent=(processed_invoices * 100) / total_invoices,
+                title="Syncing Invoices",
+                description=f"{processed_invoices}/{total_invoices} Invoices",
+            )
 
         if result["data"]["current_page"] == result["data"]["last_page"]:
             last_page = True
@@ -294,6 +298,8 @@ def create_blinkco_orders():
             order_doc = frappe.get_doc("BlinkCo Orders", order.name)
             order_doc.customer_id = doc["customer_id"]
             order_doc.branch_id = doc["branch_id"]
+            order_doc.order_id = doc["order_number"]
+            order_doc.blinkco_status = doc["status"]
             order_doc.payment_type = (
                 doc["payment_type"] if doc.get("payment_type") else None
             )

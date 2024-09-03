@@ -14,8 +14,10 @@
   "items",
   "column_break_kupa",
   "status",
+  "blinkco_status",
   "customer_id",
   "order_id",
+  "order_number",
   "branch_id",
   "created_at",
   "updated_at",
@@ -104,12 +106,23 @@
    "fieldname": "not_listed",
    "fieldtype": "Check",
    "label": "Not Listed?"
+  },
+  {
+   "fieldname": "blinkco_status",
+   "fieldtype": "Select",
+   "label": "BlinkCo Status",
+   "options": "\n1\n2\n3"
+  },
+  {
+   "fieldname": "order_number",
+   "fieldtype": "Data",
+   "label": "Order Number"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-31 12:39:37.400383",
+ "modified": "2024-09-03 19:10:22.992154",
  "modified_by": "Administrator",
  "module": "DrSaucy",
  "name": "BlinkCo Orders",
